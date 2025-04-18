@@ -234,8 +234,8 @@ async def panel(ctx):
         return
 
     embed = discord.Embed(
-        title="Supporto Ticket",
-        description="Clicca il pulsante sotto per creare un nuovo ticket di supporto",
+        title="NETWORK EMPIRE & FEIN",
+        description="Crea un ticket per richiedere assistenza allo staff.\n\n**NOTA:** I Ticket Troll verranno Sanzionati con Time Out o Restrizioni dal Network Hub\n\n**REGOLAMENTO TICKET**\n\n● Scrivi di che cosa hai Bisogno appena apri Ticket\n\n● Rispetta gli Staffer e non Taggarli\n\n● I ticket inattivi per più di 12/24 ore verranno chiusi",
         color=discord.Color.blue()
     )
 
