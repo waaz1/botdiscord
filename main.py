@@ -1,5 +1,6 @@
 
 import os
+import io
 import discord
 from discord import ui
 import sqlite3
@@ -124,16 +125,25 @@ class TicketModal(ui.Modal, title='Crea Ticket'):
                     await interaction.response.send_message("Solo lo staff può chiudere i ticket!", ephemeral=True)
                     return
 
-                # Save transcript
+                # Save and send transcript
                 transcript = []
                 async for message in channel.history(limit=None, oldest_first=True):
                     transcript.append(f"[{message.created_at}] {message.author}: {message.content}")
 
                 transcript_text = "\n".join(transcript)
-                with open(f"transcript-{channel.name}.txt", "w", encoding="utf-8") as f:
-                    f.write(transcript_text)
-
-                await interaction.response.send_message("Ticket chiuso e trascrizione salvata.")
+                transcript_channel = interaction.guild.get_channel(1362918431170629702)
+                
+                if transcript_channel:
+                    file = discord.File(
+                        fp=io.StringIO(transcript_text),
+                        filename=f"transcript-{channel.name}.txt"
+                    )
+                    await transcript_channel.send(
+                        f"Transcript del ticket {channel.name}",
+                        file=file
+                    )
+                
+                await interaction.response.send_message("Ticket chiuso e trascrizione salvata nel canale transcript.")
                 await asyncio.sleep(5)
                 await channel.delete()
 
