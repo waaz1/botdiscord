@@ -62,9 +62,10 @@ class TicketModal(ui.Modal, title='Crea Ticket'):
 
         # Create ticket channel
         guild = interaction.guild
-        category = discord.utils.get(guild.categories, name='Tickets')
+        category = guild.get_channel(1362029287238144172)
         if not category:
-            category = await guild.create_category('Tickets')
+            await interaction.response.send_message("Errore: categoria ticket non trovata!", ephemeral=True)
+            return
 
         ticket_count = len(category.channels) + 1
         channel_name = f'ticket-{ticket_count}'
