@@ -10,3 +10,15 @@ channel = "stable-23_05"
 run = ["python", "main.py"]
 deploymentTarget = "gce"
 ignorePorts = true
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 41683493
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
