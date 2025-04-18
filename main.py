@@ -53,18 +53,8 @@ class TicketModal(ui.Modal, title='Crea Ticket'):
         self.add_item(ui.TextInput(label='Priorità', placeholder='alta/media/bassa'))
 
     async def on_submit(self, interaction: discord.Interaction):
-        # Antispam check
         conn = sqlite3.connect('tickets.db')
         c = conn.cursor()
-        c.execute('''SELECT COUNT(*) FROM tickets 
-                     WHERE user_id = ? AND created_at > datetime('now', '-1 hour')''',
-                  (interaction.user.id,))
-        ticket_count = c.fetchone()[0]
-        
-        if ticket_count >= 1:
-            await interaction.response.send_message("Puoi creare solo 1 ticket ogni ora.", ephemeral=True)
-            conn.close()
-            return
 
         priority = self.children[2].value.lower()
         if priority not in ['alta', 'media', 'bassa']:
