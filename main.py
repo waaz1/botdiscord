@@ -2,6 +2,7 @@
 import os
 import io
 import discord
+from keep_alive import keep_alive
 from discord import ui
 import sqlite3
 import datetime
@@ -250,6 +251,8 @@ async def panel(ctx):
     view.add_item(TicketButton())
 
     await ctx.send(embed=embed, view=view)
+
+keep_alive()
 
 try:
     token = os.getenv("TOKEN") or ""
